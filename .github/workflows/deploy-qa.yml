@@ -18,6 +18,6 @@ jobs:
           $model = "${{ github.workspace }}\Model.bim"
           $server = "${{ secrets.QA_SERVER }}"
           $db = "${{ secrets.QA_DB_NAME }}"
-          & $te $model $server $db
+          & $te $model -S $server -D $db -O -C -P
           if ($LASTEXITCODE -ne 0) { exit 1 }
           Write-Host "Deploy a QA exitoso"
