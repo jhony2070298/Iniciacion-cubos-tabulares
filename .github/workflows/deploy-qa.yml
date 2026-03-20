@@ -2,7 +2,7 @@ name: Deploy to QA
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   deploy-qa:
@@ -14,9 +14,10 @@ jobs:
       - name: Deploy to QA
         shell: powershell
         run: |
-          & "C:\Program Files (x86)\Tabular Editor\TabularEditor.exe" ``
-            "`${{ github.workspace }}\Model.bim" ``
-            "${{ secrets.QA_SERVER }}" ``
-            "${{ secrets.QA_DB_NAME }}"
-          if (`$LASTEXITCODE -ne 0) { exit 1 }
+          $te = "C:\Program Files (x86)\Tabular Editor\TabularEditor.exe"
+          $model = "${{ github.workspace }}\Model.bim"
+          $server = "${{ secrets.QA_SERVER }}"
+          $db = "${{ secrets.QA_DB_NAME }}"
+          & $te $model $server $db
+          if ($LASTEXITCODE -ne 0) { exit 1 }
           Write-Host "Deploy a QA exitoso"
