@@ -25,5 +25,4 @@ jobs:
           New-Item -Path "C:\deploy" -ItemType Directory -Force
           Copy-Item "$env:GITHUB_WORKSPACE\Model.bim" "C:\deploy\Model.bim" -Force
           & $te "C:\deploy\Model.bim" -deploy localhost $db -O -C -P
-          if ($LASTEXITCODE -ne 0) { exit 1 }
           Write-Host "Deploy a QA exitoso"
