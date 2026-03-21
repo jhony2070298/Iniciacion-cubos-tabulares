@@ -22,7 +22,8 @@ jobs:
         run: |
           $te = "C:\Program Files (x86)\Tabular Editor\TabularEditor.exe"
           $db = "${{ secrets.QA_DB_NAME }}"
-          $model = "$env:GITHUB_WORKSPACE\Model.bim"
-          Write-Host "Modelo: $model"
-          & $te "$model" -deploy localhost "$db" -O -C -P
+          New-Item -Path "C:\deploy" -ItemType Directory -Force
+          Copy-Item "$env:GITHUB_WORKSPACE\Model.bim" "C:\deploy\Model.bim" -Force
+          & $te "C:\deploy\Model.bim" -deploy localhost $db -O -C -P
           if ($LASTEXITCODE -ne 0) { exit 1 }
+          Write-Host "Deploy a QA exitoso"
