@@ -14,10 +14,10 @@ jobs:
       - name: Deploy to QA
         shell: powershell
         run: |
-          $te = "C:\Program Files (x86)\Tabular Editor\TabularEditor.exe"
-          $model = "${{ github.workspace }}\Model.bim"
-          $server = "${{ secrets.QA_SERVER }}"
-          $db = "${{ secrets.QA_DB_NAME }}"
-          & $te $model -S $server -D $db -O -C -P
+          & "C:\Program Files (x86)\Tabular Editor\TabularEditor.exe" `
+            "${{ github.workspace }}\Model.bim" `
+            -deploy localhost `
+            "${{ secrets.QA_DB_NAME }}" `
+            -O -C -P
           if ($LASTEXITCODE -ne 0) { exit 1 }
           Write-Host "Deploy a QA exitoso"
