@@ -16,6 +16,6 @@ jobs:
         run: |
           $te = "C:\Program Files (x86)\Tabular Editor\TabularEditor.exe"
           $db = "${{ secrets.QA_DB_NAME }}"
-          & $te "C:\Windows\System32\actions-runner\_work\Iniciacion-cubos-tabulares\Model.bim" -deploy localhost $db -O -C -P
+          & $te "C:\Windows\System32\actions-runner\_work\Iniciacion-cubos-tabulares\Iniciacion-cubos-tabulares\Model.bim" -deploy localhost $db -O -C -P
           if ($LASTEXITCODE -ne 0) { exit 1 }
           Write-Host "Deploy a QA exitoso"
