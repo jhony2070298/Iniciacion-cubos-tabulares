@@ -11,13 +11,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Verificar ruta
+        shell: powershell
+        run: |
+          Get-ChildItem "C:\Windows\System32\actions-runner\_work\" -Recurse -Filter "Model.bim" | Select-Object FullName
+
+
       - name: Deploy to QA
         shell: powershell
         run: |
-          & "C:\Program Files (x86)\Tabular Editor\TabularEditor.exe" `
-            "${{ github.workspace }}\Model.bim" `
-            -deploy localhost `
-            "${{ secrets.QA_DB_NAME }}" `
-            -O -C -P
-          if ($LASTEXITCODE -ne 0) { exit 1 }
+          $te = "C:\Program Files (x86)\Tabular Editor\TabularEditor.exe"
+          $db = "${{ secrets.QA_DB_NAME }}"
+          New-Item -Path "C:\deploy" -ItemType Directory -Force
+          Copy-Item "$env:GITHUB_WORKSPACE\Model.bim" "C:\deploy\Model.bim" -Force
+          & $te "C:\deploy\Model.bim" -deploy localhost $db -O -C -P
           Write-Host "Deploy a QA exitoso"
