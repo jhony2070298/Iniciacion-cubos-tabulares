@@ -23,10 +23,6 @@ jobs:
           $te = "C:\Program Files (x86)\Tabular Editor\TabularEditor.exe"
           $db = "${{ secrets.QA_DB_NAME }}"
           $model = "$env:GITHUB_WORKSPACE\Model.bim"
-          if (!(Test-Path $model)) {
-            Write-Host "No encontrado en: $model"
-            exit 1
-          }
-          Write-Host "Modelo encontrado en: $model"
-          & $te $model -deploy localhost $db -O -C -P
+          Write-Host "Modelo: $model"
+          & $te "$model" -deploy localhost "$db" -O -C -P
           if ($LASTEXITCODE -ne 0) { exit 1 }
