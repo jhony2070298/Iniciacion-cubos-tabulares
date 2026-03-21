@@ -15,8 +15,9 @@ jobs:
         shell: powershell
         run: |
           $te = "C:\Program Files (x86)\Tabular Editor\TabularEditor.exe"
-          $model = "${{ github.workspace }}\Model.bim"
+          $model = "$env:GITHUB_WORKSPACE\Model.bim"
           $db = "${{ secrets.QA_DB_NAME }}"
+          Write-Host "Ruta del modelo: $model"
           & $te $model -deploy localhost $db -O -C -P
           if ($LASTEXITCODE -ne 0) { exit 1 }
           Write-Host "Deploy a QA exitoso"
