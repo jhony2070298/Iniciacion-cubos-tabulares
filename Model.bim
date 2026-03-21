@@ -147,6 +147,10 @@
           {
             "name": "prueba CI CD",
             "expression": " SUM('GH Empleados'[Edad])"
+          },
+          {
+            "name": "PRUEBA 1",
+            "expression": " AVERAGE('GH Empleados'[Edad])"
           }
         ],
         "annotations": [
